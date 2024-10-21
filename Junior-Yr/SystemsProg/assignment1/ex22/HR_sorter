@@ -1,0 +1,41 @@
+#!/bin/bash/
+
+# Declare an associative array to store keywords and their weights
+declare -A keyweights
+
+# Parse the word weights from input.txt
+while read -r line; do
+    weight=$(echo "$line" | awk '{print $NF}')
+    keyword=$(echo "$line" | awk '{$NF=""; sub(/^[ \t]+/, ""); sub(/[ \t]+$/, ""); print $0}') #remove spaces
+    keyweights["$keyword"]="$weight"
+done < input.txt
+
+# Declare an associative array to store scores for each file
+declare -A scores
+
+# Calculate scores for each file in the submissions directory
+for file in submissions/*; do
+    score=0  # Initialize the score
+
+    # Loop through each keyword in the keyweights array
+    for keyword in "${!keyweights[@]}"; do
+        # Count occurrences of keyword
+	count=$(grep -o -i "$keyword" "$file"| wc -l)
+        weight="${keyweights["$keyword"]}"
+        # add up score
+        score=$(echo "$score + ($count * $weight)" | bc)
+    done
+
+    # Remove trailing zeros
+    formatted_score=$(printf "%g" "$score")
+
+    # Extract filename
+    filename="$(basename "$file")"
+
+    # Store the score
+    scores["$filename"]="$formatted_score"
+done
+
+for filename in "${!scores[@]}"; do
+    echo "${scores[$filename]} $filename"
+done | sort -rn

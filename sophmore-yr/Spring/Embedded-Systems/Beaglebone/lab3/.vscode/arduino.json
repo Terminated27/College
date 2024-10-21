@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:uno",
+    "port": "COM6",
+    "sketch": "..\\..\\..\\OneDrive\\Documents\\College\\sophmore yr\\Embedded Systems\\Lab8.1\\tempsensor.ino"
+}

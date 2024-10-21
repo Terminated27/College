@@ -1,0 +1,112 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+
+\begin{document}
+
+\title{Java Methods Implementation}
+\author{Aidan Chin, Rayan Azad, Anhad Singh, Seth Oswalt}
+\maketitle
+
+\section*{Writing Exercise}
+
+Write (in real Java) the following methods to be added to this class:
+\begin{lstlisting}[language=Java]
+    public class BooleanExpression {
+        public static final int AND = 1; // AND operator
+        public static final int OR = 2; // OR operator
+        public static final int NOT = 3; // NOT operator
+        
+        boolean isLeaf; // true if this is a one-node tree
+        boolean leafValue; // value of tree if it has just one node
+        int operator; // value must be AND, OR, or NOT
+        BooleanExpression left, right; // subexpressions if !isLeaf
+        
+        public BooleanExpression (boolean arg) {
+            // create one-node tree with given value
+            isLeaf = true;
+            leafValue = arg;
+            left = right = null;}
+
+        public BooleanExpression (int op, BooleanExpression leftArg, 
+                                  BooleanExpression rightArg) {
+            // create tree with given operator, left argument, right argument
+            isLeaf = false;
+            operator = op;
+            left = leftArg;
+            right = rightArg;}
+
+        public boolean getIsLeaf () {return isLeaf;}
+        public boolean getLeafValue ( ) {return leafValue;}
+        public int getOperator () {return operator;}
+        public BooleanExpression getLeft () {return left;}
+        public BooleanExpression getRight () {return right;}}
+\end{lstlisting}
+
+\begin{enumerate}
+    \item A method \texttt{size} that returns an \texttt{int} giving the number of nodes in the calling expression’s tree. (We’ll mostly do this on the blackboard.)
+    \item A method \texttt{leaves} that returns an \texttt{int} giving the number of leaves in the calling expression’s tree.
+    \item A method \texttt{depth} that returns an \texttt{int} giving the depth of the tree, which is the number of nodes in the longest directed path from the root node to any leaf.
+    \item A method \texttt{eval} to return the boolean value of the calling expression.
+    \item (if time) A method \texttt{toString} that returns a \texttt{String} representing the expression, in an infix format like “NOT ((true OR false) AND (false OR true))”.
+\end{enumerate}
+
+\section*{Response Area}
+
+\begin{lstlisting}[language=Java]
+class JavaMethods:
+    public int size():
+        {
+            if (getIsLeaf()) return 1;
+            if (getOperator() == NOT) return 1 + getLeft.size();
+            return 1 + getLeft.size() + getRight.size();
+        }
+        
+    
+    public int leaves():
+        {
+            if(getIsLeaf()) return 1;
+            return getLeft.leaves() + getRight.leaves();
+        }
+    
+    public int depth(self):
+        {
+            if(getIsLeaf()) return 0;
+            int leftDepth = getLeft.depth();
+            int rightDepth = getRight.depth();
+            return max(leftDepth, rightDepth);
+        }
+    
+    public boolean eval(self):
+        {
+
+        }
+    
+    public str toString(self):
+        # Write your Java code for toString method here
+        pass
+\end{lstlisting}
+
+\end{document}

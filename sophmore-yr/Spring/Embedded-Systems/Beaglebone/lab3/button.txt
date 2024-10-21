@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+//Sets up gpio pin as input
+void configure_gpio_input(int gpio_number){
+ char gpio_num[10];
+ sprintf(gpio_num, "export%d"
+, gpio_number);
+ const char* GPIOExport="/sys/class/gpio/export";
+ // exporting the GPIO to user space
+ FILE* fp = fopen(GPIOExport, "w");
+ fwrite(gpio_num, sizeof(char), sizeof(gpio_num), fp);
+ fclose(fp);
+ // setting gpio direction as input
+ char GPIODirection[40];
+ sprintf(GPIODirection, "/sys/class/gpio/gpio%d/direction", gpio_number);
+ // setting GPIO as input
+ fp = fopen(GPIODirection, "w");
+ fwrite("in", sizeof(char), 2, fp);
+ fclose(fp);
+}
+int main(){
+ // configure pin P8_8 as input with internal pull-up enabled
+ int gpio_number = 67;
+ configure_gpio_input(gpio_number);
+ // file path to read button status
+ char valuePath[40];
+ sprintf(valuePath, "/sys/class/gpio/gpio%d/value", gpio_number);
+ // wait before first readings to avoid faulty readings
+ sleep(1);
+ int state;
+ FILE *fp;
+ // loop to monitor events
+ while(1){
+ fp = fopen(valuePath, "r");
+ // default state is 1 since buttons are configured with
+ // internal pull-up resistors. So, reading 0 means button
+ // is pressed
+ fscanf(fp,
+"%d"
+, &state);
+
+ fclose(fp);
+ // event detected
+ if( state == 0 ){
+ printf("Button is pressed.\n");
+ }
+ }
+ return 0;
+}

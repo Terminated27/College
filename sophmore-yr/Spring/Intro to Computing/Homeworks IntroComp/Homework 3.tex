@@ -1,0 +1,244 @@
+\documentclass[12pt]{article}         
+\usepackage{fullpage}
+\usepackage[shortlabels]{enumitem}
+\usepackage{amsmath}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+%\usepackage{amsmath}
+%\usepackage{amssymb}
+%\usepackage{enumitem}
+
+\title{250 Homework $\#$3}
+\author{Aidan Chin \footnote{Collaborated with Nobody.}}
+
+\begin{document}
+\maketitle
+
+\section*{\textbf{P3.1.6} [10 pts]}
+Two naturals are defined to be \textbf{relatively prime} if their greatest common divisor is 1. Note that this can happen even if either or both of the two naturals are composite.
+
+\begin{enumerate}[(a)]
+    \item Show that if $x$ is prime, and $y$ is not a multiple of $x$, then $x$ and $y$ are relatively prime.
+
+    \item Give an example of two composite numbers that are relatively prime. 
+
+    \item Recall the example of a hash table, where we have $n$ locations and respond to a collision by moving up $k$ locations. Show that if $n$ and $k$ are not relatively prime, then repeatedly skipping $k$ locations will not reach all possible locations.
+    
+\end{enumerate}
+
+\subsection*{\textbf{Solution:}}
+\begin{enumerate}[(a)]
+    \item each natural $y$ can be represented as a product of primes, this means that each possible factor will be represented as its atomic components of prime numbers, and by definition they must be multiples of $y$, if the prime natural $x$ is not present in that prime factorization, then by definition they must also be relatively prime, because they share no numbers in their prime factorization besides 1.
+
+    \item 34 and 57, 34 can be prime factorized to 2 and 17, 57 can be prime factorized to 19 and 3, they are relatively prime
+
+    \item $n$ locations and $k$ iteration size are relatively prime so their GCD $\equiv 1$ so on every wrap around case, it will iterate by 1 space, so if it started on 0 and wrapped around we would be on space 1, in the case where $n$ and $k$ are not relatively prime, their GCD$\neq 1$ so on each wrap around, it will iterate by a number not equal to one, therefore missing spaces
+    
+\end{enumerate}
+
+\newpage
+\section*{\textbf{P3.5.2} [10 pts]}
+The \textbf{Gregorian calendar} (the one in most general use today)\footnote{Great Britain and its colonies switched from the Julian to Gregorian calendar in 1752, when they were considerably out of step with each other — to see how this was implemented enter \texttt{cal 1752} on any Unix machine. George Washington, who was alive at the time of this change, retroactively changed his birthday to 22 February.} is the same as the Julian calendar except that there are 365 days in year $x$ if $x$ is congruent to 100, 200, or 300 modulo 400.
+
+\begin{enumerate}[(a)]
+    \item In the Gregorian calendar, as students of World War II may recall, 7 December 1941 was a Sunday. We cannot, as in the case of the Julian calendar, guarantee that 7 December of year $x$ was a Sunday if $x$ $\equiv$ 1941 (mod 28), but we can guarantee it if $x$ $\equiv$ 1941 (mod $c$) for some value of $c$. Find the smallest value of $c$ for which this is true.
+
+
+    \item Determine the day of the week on which you were born, using only the fact that 7 December 1941 was a Sunday. Show all of your reasoning.
+
+
+    \item What additional complications arise when designing a perpetual Gregorian calendar? 
+
+
+    \item In what years, during the period from 1 to 1941 A.D. (or 1 to 1941 C.E.), have the Gregorian and Julian calendars agreed for the entire year?
+
+\end{enumerate}
+\subsection*{\textbf{Solution:}}
+\begin{enumerate}[(a)]
+    \item in this question, the 28 corresponds to the cycle in which the days of the week in the year will be exactly the same, so every 28 years the days will be the same, unfortunately every century year in the Gregorian calendar that isn't divisible by 400, the day gets skipped, this now means that the cycle of repetition is much, much longer. to calculate this we can just account for that every 400 years a leap year not skipped. it turns out every 400 years has exactly 20,871 weeks. 365.25*400 - 3 skipped leap year days = 146097 days / 7 = 20,871 weeks. this means that the smallest number c must be 400.
+
+    \item my birthday is october 8, 2003. there are 161 years 10 months 2 days between those 2 dates including october 8, that is 59109 days, in those 61 years there was 1 leap year that ended up not being skipped so 365.25 * 61 = 22280.25 -.25; 1941 was the year after a leap year so it is .25 days ahead, now we add the 10 months and 1 day between these 2 dates, from december 7 to end of the year is 24 days and to october 8 is another 281 days; 22280 + 24 + 281 is 22585 days, now we modulo that with 7 to get 22585$\%$7 = 3. 3 days after sunday is wednesday, the day I was born.
+
+    \item searching it up on google it turns out every 1000 years the year becomes shorter by 5.5 seconds, so given a long enough time period, even the gregorian calendar will become de-synced
+
+    \item the gregorian calendar skips a leap year every 400 years, the julian one does not so if on year 1 2 and 3 they are synced, on year 400 they lose sync due to the skipped leap year, every 400 years they lose sync by 1 day so every 7*400 years they will get back into sync or 2800 years, so the only years that agree between 1 and 1941 are years 1 - 100
+    
+\end{enumerate}
+
+
+\newpage
+\section*{\textbf{P3.6.9} [10 pts]}
+ Because there are infinitely many primes, we can assign each one a number: $p_0$ = 2, $p_1$ = 3, $p_2$ = 5, and so forth. A finite \textbf{multiset} of naturals is like an ordinary finite set, except that an element can be included more than once and we care how many times it occurs. Two multisets are defined to be equal if they contain the same number of each natural. So $\{$2, 4, 4, 5$\}$, for example, is equal to $\{$4, 2, 5, 4$\}$ but not to $\{$4, 2, 2, 5$\}$. We define a function $f$ so that given any finite multiset $S$ of naturals, $f$($S$) is the product of a prime for each element of $S$. For example, $f$($\{$2, 4, 4, 5$\}$) is $p_2p_4p_4p_5$ = $5 \times 11 \times 11 \times 13$ = 7865.
+ 
+\begin{enumerate}[(a)]
+    \item Prove that $f$ is a bijection from the set of all finite multisets of naturals to the set of positive naturals.
+
+    \item  The \textbf{union of two multisets} is taken by including all the elements of each, retaining duplicates. For example, if $S$ = $\{1, 2, 2, 5\}$ and $T$ = $\{0, 1, 1, 4\}$, $S$ $\cup$ $T$ = $\{0, 1, 1, 1, 2, 2, 4, 5\}$. How is $f$($S \cup T$) related to $f$($S$) and f($T$)?
+
+    \item$ S$ is defined to be a \textbf{submultiset} of $T$, written “$S \subseteq T$”, if there is some multiset $U$ such that $S$ $\cup$ $U$ = $T$. If $S \subseteq T$, what can we say about $f$($S$) and $f$($T$)?
+
+    \item  The \textbf{intersection of two multisets} consists of the elements that occur in both, with each element occurring the same number of times as it does in the one where it occurs fewer times. For example, if $S$ = $\{0, 1, 1, 2\}$ and $T$ = $\{0, 0, 1, 3\}$, $S \cap T$ = $\{0, 1\}$. How is $f$($S \cap T$) related to $f$($S$) and $f$($T$)?
+    
+\end{enumerate}
+
+
+\subsection*{\textbf{Solution:}}
+\begin{enumerate}[(a)]
+    \item f is a bijection because f is defined as a product of primes, just how each natural can be defined uniquely as a product of primes, therefore each input of primes must have 1 unique output
+
+    \item $f (S\cup T)$ is simply the product of $f(S)$ and $f(t)$
+
+    \item we can say that S is a divisor of T
+
+    \item it is their GCF
+    
+\end{enumerate}
+
+\newpage
+\section*{\textbf{P4.1.5} [10 pts]}
+ (uses Java) Give a recursive definition of the “less than” operator on numbers. (You may refer to equality of numbers in your definition.) Write a static pseudo-Java method “\texttt{boolean isLessThan (natural x, natural y)}” that returns \texttt{true} if and only if $x < y$ and uses only our given methods. (\textbf{Hint:} Follow the example of the functions \texttt{plus} and \texttt{times} in the text.
+
+\subsection*{\textbf{Solution:}}
+\begin{lstlisting}
+    boolean isLessThan (natural x, natural y)
+    {//returns true if x is less than y
+        if (x == y )
+        { // x = y cant be less than
+            return false
+        }
+        else if (x != 0 and y != 0)
+        { //decrement to get one of the naturals = 0
+            boolean isLessThan(x-1,y-1)
+        }
+        else if (x == 0 and y != 0)
+        { // 0 is less than any natural thats not 0, if x = 0 and y != 0, y must be bigger
+            return true
+        }
+        else if (x != 0 and y == 0)
+        { // 0 is less than any natural thats not 0, if y = 0 and x != 0, x must be bigger
+            return false
+        }
+    }
+    \end{lstlisting}
+
+
+\newpage
+\section*{\textbf{P4.3.1} [10 pts]}
+Determine a formula for the sum of the first $n$ positive perfect cubes and prove it correct by induction on all naturals $n$.
+
+\subsection*{\textbf{Solution:}}
+
+the sum of the first n naturals is(7 + $2(-1/2)^n$)/3\newline
+if we cube $n$, then the input will only be perfect cubes $\frac{n^3(n^3+1)}{2}$\newline
+to prove by induction we need to prove the formula works for 1, and k+1 where k is any natural number \newline
+starting with 1: $\frac{1^3(1^3+1)}{2} = \frac{2}{2} = 1$ the formula holds true for 1, now we need to check that any number k greater than 1 also works\newline
+plugging in k+1:$\frac{(k+1)^3((k+1)^3+1)}{2}$ as we can simply see, this formula is solvable for any natural k
+\newpage
+\section*{\textbf{P4.3.7} [10 pts]}
+Determine a formula for the number of size-3 subsets of an $n$-element set, for any $n$. Prove your formula correct by induction, using the result of Exercise 4.3.8\footnote{For all naturals $n$, any set of $n$ elements has exactly $n$($n$-1)/2 subsets of size exactly 2.} in your inductive case when $n \geq$ 3.
+
+\subsection*{\textbf{Solution:}}
+
+the number of size 3 subsets of an n element set is congruent to the binomial coefficient, which finds out the number of permutations, exactly correct for the number of subsetsm\newline
+the binomial coefficient is given as :$\frac{n!}{k!(n-k)!}$ where $k$ is the amount of items from set $n$ chosen
+so the end formula is $\frac{n!}{3!(n-3)!}$ where n is the number of elements in the set\newline
+to prove with induction we must first prove 1(in this case 3, because it is the minimum number of items required) is solveable and k+1 is also solveable\newline
+$\frac{3!}{3!(3-3)!}=6/6$ thankfully $0!=1$ we we can easily solve this problem\newline
+$\frac{k+3!}{3!(k+3-3)!}$ we see that the denominator will always be above 1 so long as k is a natural, the denominator will never be = 0
+
+\newpage
+\section*{\textbf{P4.4.2} [10 pts]}
+Give a rigorous proof, using strong induction, that every positive natural has at least one factorization into prime numbers.
+
+\subsection*{\textbf{Solution:}}
+
+to use induction we need to test at the base case, in this case 2, it is the first natural with more than 1 factor.
+2 and 1, it is prime and satisfies the prompt. we know that all factors of a natural must be naturals smaller than or equal to it unless it is prime, this is saying that each composite natural number has 2 numbers a and b that multiply to get the desired natural and are not 1 and the natural, because 2 is the smallest candidate for this, and it holds true, it must also means that numbers bigger than it must be prime or composite, and can be broken down into some combo of primes smaller than the original prime
+\newpage
+
+
+\section*{\textbf{P4.4.6} [10 pts]}
+I am starting a new plan for the length of my daily dog walks. On Day 0 we walk 3 miles, on Day 1 we walk 2 miles, and for all $n >$ 0 the length of our walk on Day $n$ + 1 is the average of the lengths of the walks on Days $n$ - 1 and $n$.
+
+\begin{enumerate}[(a)]
+    \item Prove by strong induction for all naturals $n$ that on Day $n$, we walk (7 + $2(-1/2)^n$)/3 miles. (\textbf{Hint:} Use base cases for $n$ = 0 and $n$ = 1.)
+
+    \item Give a formula for the total distance that we walk on days 0 through $n$, and prove your formula correct by strong induction.
+
+\end{enumerate}
+
+\subsection*{\textbf{Solution:}}
+\begin{enumerate}[(a)]
+    \item (7 + $2(-1/2)^n$)/3, lets plug in 0 and 1 as base cases and check validity\newline
+    (7 + $2(-1/2)^0$)/3 = (7+2)/3 = 3\newline
+    (7 + $2(-1/2)^1$)/3 = (7+$(2*-1/2))/3 = (7+-1)/3 = 2$
+    because we can see that in both base cases the formula works, we now need to prove that each following value will exist
+    (7 + $2(-1/2)^{k+1}$)/3 its not difficult to see that this formula will never be undefined, also using some logic, if the first 2 days definitely exist, and what we are calculating is the average of the 2 days before, we can quickly figure out that at any number day, you can constantly work backwards until you get 2 days you know the distance walked, then you can work foreward again to get all the values in between, because there are the given beginning values we can construct every day following
+    \item 
+    as we proved before, if you can start the formula, guarantee it works for all possible inputs then thats enough information. using what we found before we can just sum together each value until our desired day n, we already know every value possible leading up to n works so n must also, and through that you can find the sum
+    $\sum_{i=0}^{n} \left(\frac{7 + 2(-1/2)^i}{3}\right)$
+
+\end{enumerate}
+
+
+\newpage
+\section*{\textbf{P4.6.5} [10 pts]}
+Define the exponentiation operator on naturals recursively so that $x^0$ = 1 and $x^{S(y)}$ = $x^y \cdot x$. Prove by induction, using this definition, that for any naturals $x, y$, and $z$, $x^{y+z} = x^y \cdot x^z$ and $x^{y \cdot z} = (x^y)^z$.
+
+
+\subsection*{\textbf{Solution:}}
+first lets prove $x^{y+z} = x^y \cdot x^z$\newline
+using the base case $x^{0+z} = x^0 \cdot x^z$ and with the given that $x^0$ = 1 its plain to see that $x^{0+z} = x^z$\newline
+next for induction, $x^y$ exponents are simply a representation of x multiplied by itself y times so if you multiply x by itself (y+z) times then it is the same as multiplying (x multiplied y times) with (x multiplied z times) using this property of addition acting as multiplication, we can also find that when there is multiplication in the exponent, logically you can infer that it acts as another exponent on the base x
+just to make sure, we should test the base case again of y=0 $x^{y \cdot z} = (x^y)^z$, $x^{0 \cdot z} = (x^0)^z$. $x^0 = 1^z$
+$1^z$ will always be 1 and so will $x^0$ so the base case works.
+\newpage
+\section*{\textbf{EC: P3.5.10} [10 pts]}
+Let $m$ and $n$ be two relatively prime positive naturals, and consider what naturals can be expressed as linear combinations $am + bn$ where $a$ and $b$ are \textit{naturals}, not just integers
+\begin{enumerate}[(a)]
+
+    \item Show that if $m$ = 2 and $n$ = 3, any natural except 1 can be so expressed.
+
+    \item Determine which naturals can be expressed if $m$ = 3 and $n$ = 5. 
+
+    \item Argue that for any $m$ and $n$, there are only a finite number of naturals that cannot be expressed in this way.
+    
+\end{enumerate}
+
+\subsection*{\textbf{Solution:}}
+
+\begin{enumerate}[(a)]
+
+    \item  if $m$ = 2 and $n$ = 3 we can represent any number that is larger than 1 as a product of $am+bn$ this is because for every number under their GCD of 6 can be represented, then using this we can just add all those combos together to create any number besides 1, $2 = 1*2; 3 = 1*3; 4 = 2*2; 5 = 1*2 + 1*3; 6 = 2*3 $ now working with these atomic parts, weve shown that for any number between 2 and a multiple of the GCD, it can be represented as a sum of m and n. ei 7 = 5+2, 11 = 5+2+4,
+
+    \item $3 = 1*3; 5 = 1*5; 6 = 2*3; 8 = 1*3 + 1*5; 9 = 3*3; 10 = 2*5;11 = 2*3+1*1 12 = 4*3; 13 = 1*3 + 2*5; 14= 3*3+1*5;15 = 3*5$ 
+as the numbers get larger we fall into a case where every number can be represented because we have more freedom in the number of n and ms we can use, giving us more accuracy, so any value larger than 7 can be represented
+those smaller than or equal to 7 include only 3,5, and 6. 7 happens to be the answer to the chicken mcnugget theorem of any number larger than nm-m-n can be represented as a sum of ns and ms
+    \item 
+    as discussed, if we apply the chicken mcnugget theorem is states that for any 2 naturals n and m, you can represent any natural number larger than mn-n-m as a combination of n and m, so long as n and m are natural numbers, there only exists a finite number of naturals below them as it will always reach the end at 0
+\end{enumerate}
+
+\end{document} 

@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage{amsmath}
+
+\title{COMPSCI 250 Discussion \#8: Boolean Expressions}
+\author{Group Response Sheet}
+\date{David Mix Barrington and Morcecai Golin\\19 April 2024}
+
+\begin{document}
+
+\maketitle
+
+\section*{Writing Exercise}
+
+Construct a regular expression for the set $EE$ (“even-even”) of strings in $\{a, b\}^*$ that have both an even number of $a$’s and an even number of $b$’s. Justify your answer carefully – explain why your expression generates only even-even strings and why it generates all even-even strings. Note that all even-even strings have even length, so you may think of the whole string as being broken up into two-letter blocks.
+
+Here are some more hints. You are not required to use them to solve the main problem, but they will probably be useful.
+
+Define the language $EEP$ (“even-even-primitive”) of nonempty strings that are in $EE$ and have no proper prefix in $EE$. (That is, if $w \in EEP$ and $w = uv$ with both $u$ and $v$ in $EE$, then either $u = \lambda$ or $v = \lambda$.) It turns out that while $EEP$ is harder than $EE$ to describe in English, it has a simpler regular expression.
+\begin{itemize}
+    \item Explain why $EE = (EEP)^*$
+    \item Which strings of up to six letters are in $EEP$?
+    \item Construct a regular expression for $EEP$, and explain why this solves the main problem.
+\end{itemize}
+\begin{enumerate}[a]
+

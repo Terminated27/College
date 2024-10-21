@@ -1,0 +1,255 @@
+\documentclass[12pt]{article}         
+\usepackage{fullpage}
+\usepackage[shortlabels]{enumitem}
+\usepackage{amsmath}
+
+%\usepackage{amsmath}
+%\usepackage{amssymb}
+%\usepackage{enumitem}
+
+\title{250 Homework $\#$1}
+\author{Aidan Chin \footnote{Collaborated with Nobody.}}
+
+\begin{document}
+\maketitle
+
+\section*{\textbf{P1.1.4} [10 pts]}
+Let $C$ be the set $\{0, 1, \ldots, 15\}$. Let $D$ be a subset of $C$ and define the number $f(D)$ as follows – $f(D)$ is the sum, for every element $i$ of $D$, of $2^i$. For example, if $D$ is ${1, 6}$ then $f(D)= 2^1 + 2^6 = 66$.
+
+
+\begin{enumerate}[label=(\alph*)]
+    \item What are $f(\emptyset)$, $f({0, 2, 5})$, and $f(C)$? 
+    
+    \item Is th ere a $D$ such that $f(D) = 666$? If so, find it. 
+    
+    \item  Explain why, if $D$ and $E$ are any two subsets of $C$ such that $f(D)= f(E)$, then $D = E$.
+\end{enumerate}
+
+
+\subsection*{\textbf{Solution:}}
+\begin{enumerate}[(a)]
+    \item $f(\emptyset) = \emptyset$ there is nothing in the set so you add nothing $f(0,2,5) = 2^0 + 2^2 + 2^5 = 37$ $f(C) = \Sigma_{n  = 0}^{15} 2^n = 65535 $
+
+    \item yes, using this base 2 system, you can define every number  $f(1,3,6,7,9) = 666$
+
+    \item in this function $f()$ there is only 1 unique output per input, therefore if the inputs are the same, the output would be the same, order doesn't matter in sets
+
+\end{enumerate}
+
+
+\newpage
+\section*{\textbf{P1.2.5} [10 pts]}
+Let the alphabet $C$ be $\{a, b, c\}$. Let the language $X$ be the set of all strings over $C$ with at least two occurrences of $b$. Let $Y$ be the language of all strings over $C$ that never have two occurrences of $c$ in a row. Let $Z$ be the language of all strings over $C$ in which every $c$ is followed by an $a$. (Recall that any string with no $c$’s is thus in $Z$.)
+
+\begin{enumerate}[(a)]
+    \item List the three-letter strings in each of $X$, $Y$, and $Z$. The easiest way to do this may be to first list all 27 strings in $C^3$ and then see which ones meet the given conditions.
+
+    \item List the four-letter strings that are both in $X$ and in $Y$, those that are both in $X$ and in $Z$, those that are both in $Y$ and in $Z$, and those that are in all three sets. How many total strings are in $C^4$?
+
+    \item Are any of $X$, $Y$, or $Z$ subsets of any of the others?
+
+    \item Suppose $u$ and $v$ are two strings in $X$. Do we know that the strings $u^R$, $v^R$, $uv$, and $vu$ are all in $X$? Either explain why this is always true, or give an example where it is not.
+
+    \item Repeat the previous question for the languages $Y$ and $Z$.
+
+\end{enumerate}
+\subsection*{\textbf{Solution:}}
+\begin{enumerate}[(a)]
+    \item $X^3 = \{ abb , bab, bba, bbb, bbc, bcb \}$ $\newline$ $Y^3 = \{ aaa, aab, aac, aba, abb, abc, aca, acb, baa, bab, bac, bba, bbb, \newline bbc, bca, bcb, caa, cab, cac, cba, cbb, cbc \}$ $\newline$ $Z^3 = \{ aaa, aab, aba, abb, baa, bab, bbb, bba, aca, bca, caa, cab, cac, cca \}$
+
+    \item the total strings in $C^4$ is equivalent to $3^4$ or 81.
+$\newline X^4 \cap Y^4 = \{ aabb, abba, baab, bbaa, bbba, abbb, babb, bbab, bbbb, cabb,\newline acbb, cbba, abbc, bcab, bacb, bbca, bbac, bbbc, cbbb, bcbb, bbcb, cbbc \}$ 
+$\newline X^4 \cap Z^4 = \{ bbbb,bbba,bbab,babb,abbb,bbca,bcab, cabb,aabb,baab,bbaa,\newline abab,baba\}$
+$\newline Y^4 \cap Z^4 = \{ aaaa, aaab, aaba, abaa baaa, bbbb, bbba, bbab, babb, abbb, \newline bbaa,aabb,baab,abba,aaca,caaa,baca,caa,caab,caba,cabb,bcab, \newline aaca,acaa,caaa,baca,bcaa,caab,caba,cabb,bcab\}$
+
+    \item as it shows, $X \subset Y$
+
+    \item this is always true, the positions dont matter of the 2 $b$'s as long as they're there it works. and reversing or concatenating does not affect the occurences of the elements in the set
+
+    \item for $Y$ this is not true, when $v= \{ac\}$ and $u=\{ca\}$ then $vu = \{acca\}$ which does not exist in $Y$
+$\newline$ for $Z$ this is not true, when $v = \{ca\}$ then $v^r$ does not exist in $Z$
+    
+\end{enumerate}
+
+
+\newpage
+\section*{\textbf{P1.4.10} [10 pts]}
+Letting $p$ denote “mackerel are fish” and $q$ denote “trout live in trees”, translate each of the following four statements into English: $\neg p \rightarrow q$, $\neg (p \rightarrow q)$, $\neg p \leftrightarrow q$, and $\neg(p \leftrightarrow q)$. Are any two of these four statements logically equivalent?
+
+
+\subsection*{\textbf{Solution:}}
+$\neg p \rightarrow q$ if mackerel arent fish, then trout live in trees
+$\newline \neg (p \rightarrow q)$ it is not the case if mackerel are fish, then trout live in trees
+$\newline \neg p \leftrightarrow q$ mackerel aren't fish, if and only if trout live in trees
+$\newline\neg(p \leftrightarrow q)$ it is not the case that mackerel are fish, if and only if trout live in trees
+$\newline$ the truth table shows that $\neg p \leftrightarrow q$ and $\neg(p \leftrightarrow q)$  are equivalent
+\begin{table}[htbp] 
+    \centering
+    \begin{tabular}{llllll}
+    \hline
+    p & q & $\neg p \rightarrow q$ & $\neg (p \rightarrow q)$ & $\neg p \leftrightarrow q$ & $\neg(p \leftrightarrow q)$ \\ \hline
+    0 & 0 & 0                      & 0                        & 0                          & 0                           \\
+    0 & 1 & 1                      & 0                        & 1                          & 1                           \\
+    1 & 0 & 1                      & 1                        & 1                          & 1                           \\
+    1 & 1 & 1                      & 0                        & 0                          & 0                           \\ \hline
+    \end{tabular}
+\end{table}
+
+
+
+
+
+\newpage
+\section*{\textbf{P1.5.6} [10 pts]}
+Let $\Sigma$ be the alphabet ${a,b, c, \ldots, z}$ and let $U$ be the set $\Sigma^3$ of three-letter strings with letters from $\Sigma$. Let $X$ be the set of strings in $U$ whose first letter is $c$. Let $Y$ be the set of strings whose second letter is $a$, and let $Z$ be the set of strings whose last letter is $t$. Describe each of the following sets in English, and determine the number of strings in each set.
+
+\begin{enumerate}[(a)]
+\item $X \cap Y$
+\item $X \cap Y \cap Z$
+\item $Y \cup Z$
+\item $X \cap (Y \cup Z)$
+
+\end{enumerate}
+
+\subsection*{\textbf{Solution:}}
+\begin{enumerate}[(a)]
+    \item $X \cap Y =$ the set of strings in $U$ whose first first letter is c and the second letter is a
+
+    \item $X \cap Y\cap Z = \{ cat \}$
+
+    \item $Y \cup Z =$ the set of strings in $U$ that either has a as the second letter or t as the last letter, or both
+
+    \item $X\cap (Y \cup Z) = $ the set of strings in $U$ that have c as the first letter and either has a as the second letter or t as the last letter, or both a and t
+
+\end{enumerate}
+
+
+\newpage
+\section*{\textbf{P1.7.6} [10 pts]}
+Suppose we substitute $a \oplus b$ for $p$ and $a \land b$ for $q$ in the contrapositive rule to get $((a \oplus b) \rightarrow (a \land b)) \leftrightarrow ((\neg a \land b) \rightarrow (\neg a \oplus b))$. Verify that this result is \textit{not} a tautology. Why didn’t our substitution lead to a valid tautology?
+
+
+\subsection*{\textbf{Solution:}}
+the reason this is not a valid tautology is because of the way that the $\neg$ was distributed does not follow the identity, the $(a \oplus b)$ should become $\neg (a \oplus b)$ and not $(\neg a \oplus b)$ and the same could be said for $q$
+
+by checking the truth table we can find that they are definitely not equivalent
+\begin{table}[htbp] 
+    \centering
+    \begin{tabular}{llllll}
+    \hline
+a & b & original & negated \\
+0 & 0 & 0        & 1       \\
+0 & 1 & 1        & 0       \\
+1 & 0 & 1        & 1       \\
+1 & 1 & 0        & 1      \\ \hline
+    \end{tabular}
+\end{table}
+
+\newpage
+
+
+
+\newpage
+\section*{\textbf{P1.8.2} [10 pts]}
+A variant of the Proof By Cases rule is as follows: Given the premises $p \lor q$, $p \rightarrow r$, and $q \rightarrow r$, derive $r$.
+
+
+\subsection*{\textbf{Solution:}}
+
+$p \lor q$, $p \rightarrow r$, $q \rightarrow r\newline$
+through definition of implication $\neg p \rightarrow q$, $p \rightarrow r$, $q \rightarrow r\newline$
+combining implications $\neg p \rightarrow r$, $p \rightarrow r\newline$
+tautology, $r$
+
+
+\newpage
+\section*{\textbf{P1.8.7} [10 pts]}
+Prove that the compound propositions $p \land (q \rightarrow r)$ and $\neg (p \rightarrow (q \land \neg r))$ are equivalent by using the Equivalence and Implication Rule and constructing two deductive sequence proofs.
+
+
+
+\subsection*{\textbf{Solution:}}
+Proof 1  $p \land (q \rightarrow r) \rightarrow \neg (p \rightarrow (q \land \neg r))$
+$\newline p \land (q \rightarrow r)$ Given
+$\newline q \rightarrow r$ Given
+$\newline \neg q \lor r$ Implication rule
+$\newline  p \land (\neg q \lor  r)$ plug in 
+$\newline \neg p \lor \neg (\neg q \lor  r)$ implication rule
+$\newline \neg(p \rightarrow (q \and \neg r))$ equivalence / demorgans, since they are the same, they are equivalent
+$\newline$Proof 2   $\neg (p \rightarrow (q \land \neg r)) \rightarrow p \land (q \rightarrow r)$
+$\newline \neg (p \rightarrow (q \land \neg r))$given
+$\newline \neg p \lor \neg (\neg q \lor  r)$ implication rule $\&$ demorgans
+$\newline \neg p \lor \neg ( q \land \neg  r)$ demorgans
+$\newline \land (q \rightarrow r)$ demorgans and implication rule
+they are logcially identical, therefore they are equivalent
+
+\newpage
+\section*{\textbf{P1.10.6} [12 pts]}
+We can define binary relations on the naturals for each of the five relational operators. Let $LT(x, y)$, $LE(x, y)$, $E(x, y)$, $GE(x, y)$, and $GT(x, y)$ be the predicates with templates $x < y$, $x \leq y$, $x = y$, $x \geq y$, and $x > y$ respectively.
+
+\begin{enumerate}[(a)]
+    \item Show how each of the five predicates can be written using only $LE$ and boolean operators. Use your constructions to rewrite $(LE(a, b) \oplus (E(b, c) \lor GT(c, a)) \rightarrow (LT(c, b) \land GE(a, c))$ in such terms.
+
+    \item Express each of the five predicates using only $LT$ and boolean operators, and rewrite the same compound statement in those terms.
+\end{enumerate}
+
+\subsection*{\textbf{Solution:}}
+\begin{enumerate}[(a)]
+    \item $LT(x,y) = \neg LE(y,x)$
+$\newline LE(x,y) = LE(x,y)$
+$\newline E(x,y) = LE(x,y)\land LE(y,x)$
+$\newline GE(x,y) = LE(y,x)$
+$\newline GT(x,y) = \neg LE(x,y)$
+$\newline$the original equation in the new terms $LE(a,b) \oplus (LE(b,c)\land LE(c,b) \lor \neg LE(c,a)) \rightarrow (\neg(b,c) \land LE(c,a))$
+
+    \item $LT(x,y) = LT(x,y)$
+$\newline LE(x,y) = \neg LT(y,x) $
+$\newline E(x,y) = \neg LT(x,y)\land \neg LT(y,x)$
+$\newline GE(x,y)=\neg LT(x,y)$
+$\newline GT(x,y)=LT(y,x)$
+$\newline$the original equation in the new terms $\neg LT(b,a) \oplus ( \neg LT(b,c)\land \neg LT(a,c)\lor LT(a,c)\rightarrow (LT(c,b)\land \neg LT(a,c))$
+\end{enumerate}
+
+
+\newpage
+\section*{\textbf{P2.3.9} [12 pts]}
+Let $D$ be a set of dogs and let $T$ be a subset of terriers, so that the predicate $T(x)$ means “dog $x$ is a terrier”. Let $F(x)$ mean “dog $x$ is fierce” and let $S(x, y)$ mean “dog $x$ is smaller than dog $y$”. Write quantified statements for the following, using only variables whose type is $D$:
+
+\begin{enumerate}[(a)]
+    \item There exists a fierce terrier.
+
+    \item All terriers are fierce.
+
+    \item There exists a fierce dog who is smaller than all terriers.
+
+    \item There exists a terrier who is smaller than all fierce dogs, except itself.
+
+\end{enumerate}
+
+
+\subsection*{\textbf{Solution:}}
+\begin{enumerate}[(a)]
+    \item $\exists x \in D: F(x) \land T(x)$
+
+    \item $\exists x \in D: F(x) \rightarrow T(x)$
+
+    \item $\exists x \in D: \forall T:S(F(x,D)$
+
+    \item $\exists x \in D: \left( T(x) \land \forall y \in D: \left( F(y) \land y \neq x \right) \rightarrow S(x, y) \right)$
+
+\end{enumerate}
+
+
+\newpage
+\section*{\textbf{EC: P2.3.7} [10 pts]}
+Let $D$ be a set of dogs, with $R$ being the subset of retrievers, $B$ being the subset of black dogs, and $F$ being the subset of female dogs, with membership predicates $R(x)$, $B(x)$, and $F(x)$ respectively. Suppose that the three statements $\forall x: \exists y: R(x) \oplus R(y), \forall x : \exists y : B(x) \oplus B(y)$, and $\forall x: \exists y: F(x) \oplus F(y)$ are all true. What can you say about the number of dogs in D? Justify your answer.
+
+
+\subsection*{\textbf{Solution:}}
+$\forall x: \exists y: R(x) \oplus R(y)$ - for every dog x, there is a dog y such that x is a retriever or y is a retriever, but not both
+$\newline \forall x : \exists y : B(x) \oplus B(y)$ - for every dog x there is a dog y such that x is black or y is black but not both
+ $\newline \forall x: \exists y: F(x) \oplus F(y)$ - for every dog x there is a dog y such that x is female or y is female but not both
+from these we can conclude that for every dog, there is another dog that is a retriever, same for black dogs and female dogs
+we can see from this that the size of D must be at least 2x the size of either R, B, or F
+
+\end{document} 

@@ -1,0 +1,11 @@
+; this program is the first program we are writing in the assembler
+                ;^6502 assembly language program
+; the assembler is located @ ASM80.com
+
+
+        org $0200
+        cld         ; we are clearing decimal mode to prevent strange arithmetic
+        clc         ; clear carry because we are going to branch on carry clear
+LOOP1:  nop
+        bcc LOOP1
+        nop

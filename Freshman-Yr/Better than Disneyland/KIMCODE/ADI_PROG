@@ -1,0 +1,29 @@
+; this prog displays Adi's name on the KIM
+----------------------------------------------------
+; the ROM consists of subroutines
+; subroutines are pieces of code that you can cell to within other prog
+; improve prog and space efficiency
+; make prog more understandable, help prog flow (assume the ywork then figure it out)
+
+; common subroutines
+; AK $1EFE
+; GETKEY $1F6A
+; SCAND $1F19
+; SCANDS $1F1F
+
+        SCANDS equ $1F1F
+        DATA_LOC $00F9 ; this is the locatoin that SCANDS reads to output on the kim
+
+        SCANDS  equ $1F1F
+        LOC     equ $00f9
+
+        org         $0200 ; start of code location
+        cld
+        lda         #$AD  ; storing immediate value AD into the A register
+        sta         DATA_LOC ;
+LOOP:   nop         
+        jsr         SCANDS ; this jumps to subroutine SCANDS, and then comes back after subroutine is finished
+        jmp         LOOP
+
+
+

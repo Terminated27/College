@@ -1,0 +1,21 @@
+Start increment memory location 0 using zero page addressing increment location BBBB using zero page addressing
+ A2 load x abs
+FF
+00 
+ F0 Branch if Equal to 0
+ location TBD
+ E6 increment
+ 00
+ EE increment previous increment
+location TBD
+ 0F
+
+ CA decrement x by 1
+
+
+
+ 4C jump to beginning
+ TBD
+ 0F
+BREAK
+00FF FF

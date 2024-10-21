@@ -1,0 +1,24 @@
+; Generate A Ramp on Port A and Port B
+
+PortA           equ $1700
+PortADDR        equ $1701
+
+PortB           equ $1702
+PortBDDR        equ $1703
+
+                org $0200       ;Start program at $0200
+Begin:
+                lda #$0f        ;Set bites 0, 1, 2, and 3 of PortA to Outputs
+                sta PortADDR
+                sta PortBDDR
+
+                lda #$00        ; load a 0 into a
+                sta PortA       ; Store it in PortA so it starts @ 0
+                sta PortB       ; Store in in PortB so it starts @ 0
+
+Loop:
+                inc PortA       ; increment PortA data register
+                inc PortB       ; increment PortA data register
+                jmp Loop        ; go back and do it agian forever
+
+                end

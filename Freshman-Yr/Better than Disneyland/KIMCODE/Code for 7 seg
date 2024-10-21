@@ -1,0 +1,185 @@
+; SPI Driver
+; Code to do a 7 Segment x 8 Demo
+
+
+PortADR		equ	$1700
+PortADDR 		equ	$1701
+PortBDR		equ	$1702
+PortBDDR		equ	$1703
+PortA2DR		equ	$1740
+PortA2DDR		equ	$1741
+;BobsPort		equ	$4000
+GETKEY		equ	$1f6a
+Temp			equ	$00
+TableAddrL		equ	$01
+TableAddrH		equ	$02
+WordCounter		equ	$03
+Temp2			equ	$04
+
+NumberOfWords	equ	13
+
+		org	$0200
+		code
+Begin:
+		lda	#$86
+		sta	PortADDR
+		lda	#$04			;CS High
+		sta	PortADR
+
+Loop:		
+        jsr	InitTableAddr1
+		lda	#NumberOfWords
+		sta	WordCounter
+
+NextDigit1:	jsr	GetNextTableValue	;Send 1 Word of Data
+		jsr	SPIWord
+		
+		dec	WordCounter
+		bne	NextDigit1
+
+		jsr	Delay
+
+		jsr	InitTableAddr2
+
+		lda	#NumberOfWords
+		sta	WordCounter
+
+NextDigit2:	jsr	GetNextTableValue	;Send 1 Word of Data
+		jsr	SPIWord
+		
+		dec	WordCounter
+		bne	NextDigit2
+
+		jsr	Delay
+		jsr	Delay
+
+		jmp	Loop			;Send the data continuously
+		
+; ===============================================================================================
+; S U B R O U T I N E S
+; ===============================================================================================
+		
+;
+;
+SPIWord:					;Send 2 bytes of data in A on clock rising edge with CS Low
+		sta	Temp
+		lda	#$00
+		sta	PortADR		;CS and Clock Low
+		ldx	#$08	
+NextBit:	lda	Temp
+		and	#$80
+		sta	PortADR
+		ora	#$02
+		sta	PortADR
+		and	#$80
+		sta	PortADR
+		asl	Temp
+		dex
+		bne	NextBit
+		jsr	GetNextTableValue	;Get the second byte and send it
+		sta	Temp
+		ldx	#$08	
+NextBit2:	lda	Temp
+		and	#$80
+		sta	PortADR
+		ora	#$02
+		sta	PortADR
+		and	#$80
+		sta	PortADR
+		asl	Temp
+		dex
+		bne	NextBit2
+		lda	#$04			;CS High, Clock Low
+		sta	PortADR
+		rts
+;
+;
+InitTableAddr1:
+		lda	#$00
+		sta	TableAddrL
+		lda	#$04
+		sta	TableAddrH
+		rts
+
+;
+;
+InitTableAddr2:
+		lda	#$00
+		sta	TableAddrL
+		lda	#$05
+		sta	TableAddrH
+		rts
+
+;
+;
+GetNextTableValue:			;Load A with the next table value and inc the pointer
+		ldy	#$00
+		lda	(TableAddrL),y
+		jsr	IncTablePtr
+		rts
+
+;
+;
+IncTablePtr:				;Increment the table pointer in absolute indexted mode
+		pha
+		inc	TableAddrL
+		clc
+		lda	TableAddrL
+;		adc	#$01
+		sta	TableAddrL
+		lda	TableAddrH
+		adc	#$00
+		sta	TableAddrH
+		pla
+		rts
+
+;
+Delay		ldy	#$ff
+Delay1:	ldx	#$ff
+Delay2:	dex
+		nop
+		nop
+		nop
+		bne	Delay2
+		dey
+		bne	Delay1
+		rts	
+	
+	
+		org	$0400
+
+Image1:	db	$0c,$01		;Normal Operation
+		db	$09,$ff		;Decode-Mode B for all 8 digits
+		db	$0a,$08		;Intensity to 1/2 
+		db	$0b,$07		; Scan-Limit to all 8 digits
+		db	$0f,$00		;Be sure not in test more
+
+		db	$01,$01		;Digit 1 = 1
+		db	$02,$02
+		db	$03,$03
+		db	$04,$04
+		db	$05,$05
+		db	$06,$06
+		db	$07,$07
+		db	$08,$08
+
+
+	
+		org	$0500
+
+Image2:	db	$0c,$01		;Normal Operation
+		db	$09,$ff		;Decode-Mode B for all 8 digits
+		db	$0a,$08		;Intensity to 1/2 
+		db	$0b,$07		; Scan-Limit to all 8 digits
+		db	$0f,$00		;Be sure not in test more
+
+		db	$01,$0e		;Digit 1 = 1
+		db	$02,$0d
+		db	$03,$0b
+		db	$04,$0c
+		db	$05,$0f
+		db	$06,$0f
+		db	$07,$0f
+		db	$08,$0f
+
+		end

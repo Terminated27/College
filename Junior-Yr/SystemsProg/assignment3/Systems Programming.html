@@ -1,0 +1,516 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><script src="Systems%20Programming_files/fido2-page-script.js"></script><head>
+    <link rel="shortcut icon" href="https://courses.umass.edu/eceng322-deirwin/fall24/assignments/umass.jpg">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <title>Systems Programming</title>
+    <meta content="David Irwin" name="author">
+    <meta content="Course Webpage" name="description">
+  </head>
+  <body vlink="#551A8B" text="#000000" link="#0000EE" bgcolor="#FFFFFF" alink="#EE0000">
+    <table width="100%" cellspacing="2" cellpadding="2" border="0" bgcolor="#ffffff">
+      <tbody>
+        <tr>
+          <td valign="top" bgcolor="#ffffff"><big><big><b>ECE 322 -
+                  Systems Programming<br>
+                  <a href="http://www.umass.edu/"><font color="#990000"><small>University
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        of Massachusetts Amherst</small></font></a><br>
+                  <a href="http://engineering.umass.edu/"><font color="#990000"><small>The College of Engineering</small></font>
+                  </a><br>
+                  <a href="http://www.ece.umass.edu/"><font color="#990000"><small>Department of Electrical
+                        and Computer Engineering</small></font></a></b></big></big></td>
+          <td valign="top" align="left"><a href="http://www.umass.edu/"><img alt="UMass Amherst Logo" src="Systems%20Programming_files/umass-logo.jpg" width="129" height="100" border="0"></a><br>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <big><big><b> </b></big></big>
+    <table width="801" height="33" cellspacing="2" cellpadding="2" border="2" bgcolor="#ffffff" align="center">
+      <tbody>
+        <tr>
+          <td valign="top" bgcolor="#ffffff" align="center"><a href="https://courses.umass.edu/eceng322-deirwin/fall24/index.html"><b>Home</b></a><br>
+          </td>
+          <td valign="top" align="center"><a href="https://courses.umass.edu/eceng322-deirwin/fall24/calendar.html"><b>Calendar</b></a>
+          </td>
+          <td valign="top" align="center"><a href="https://courses.umass.edu/eceng322-deirwin/fall24/staff.html"><b>Staff</b></a>
+          </td>
+          <td valign="top" align="center"><a href="https://courses.umass.edu/eceng322-deirwin/fall24/assignments.html"><b>Assignments</b></a></td>
+          <td valign="top" align="center"><a href="https://courses.umass.edu/eceng322-deirwin/fall24/resources.html"><b>Resources</b></a></td>
+          <td valign="top" align="center"><a href="https://courses.umass.edu/eceng322-deirwin/fall24/resources/feedback.html" moz-do-not-send="true"><b>Feedback</b></a></td>
+        </tr>
+      </tbody>
+    </table>
+    <big><big><b><br>
+          Assignment 3</b></big></big><span style="color: rgb(0, 0, 0);
+      font-family: Times; font-size: medium; font-style: normal;
+      font-variant: normal; font-weight: normal; letter-spacing: normal;
+      line-height: normal; orphans: 2; text-align: start; text-indent:
+      0px; text-transform: none; white-space: normal; widows: 2;
+      word-spacing: 0px; -webkit-text-size-adjust: auto;
+      -webkit-text-stroke-width: 0px; display: inline !important; float:
+      none; "><span style="color: rgb(0, 0, 0); font-family: Times;
+        font-size: medium; font-style: normal; font-variant: normal;
+        font-weight: normal; letter-spacing: normal; line-height:
+        normal; orphans: 2; text-align: start; text-indent: 0px;
+        text-transform: none; white-space: normal; widows: 2;
+        word-spacing: 0px; -webkit-text-size-adjust: auto;
+        -webkit-text-stroke-width: 0px; display: inline !important;
+        float: none; "></span></span> <br>
+    <br>
+    <b>You may work with a partner on this assignment.&nbsp; Working
+      with a partner is voluntary and simply means that you can submit
+      the same code and it will not count as a violation of the UMass
+      Academic Honesty Policy.&nbsp; If only 1 partner uploads the code,
+      then the code must have the names of both partners at the top.
+      Note that we will check submissions for plagiarism using an
+      automated code plagiarism detector.<br>
+    </b><br>
+    The purpose of this assignment is to become more familiar with the
+    concepts of process control and signaling. You'll do this by writing
+    a simple Unix shell program that supports job control.<br>
+    <br>
+    Download the file for the assignment <a href="https://courses.umass.edu/eceng322-deirwin/fall24/assignments/assignment3.tar.gz" moz-do-not-send="true">here</a>.&nbsp; As with the previous
+    assignments, all work should be completed on the class VM.&nbsp; To
+    download the assignment tar file from the terminal in the class VM
+    and untar it, run the following commands.<br>
+    <br>
+    For those using ARM64 Linux on VMware Fusion, replace the executable
+    binary tshref with version <a moz-do-not-send="true" href="https://courses.umass.edu/eceng322-deirwin/fall24/assignments/tshref-arm">here</a>.&nbsp; That is, download this file into
+    the assignment3 directory, and run "cp tshref-arm tshref."&nbsp; <br>
+    <br>
+    $ wget --user irwin-ece --password myclass
+https://courses.umass.edu/eceng322-deirwin/fall24/assignments/assignment3.tar.gz<br>
+    $ tar xzvf assignment3.tar.gz<br>
+    <br>
+    The commands above will create an assignment3/ directory, which has
+    the assignment files. The key file here is tsch.c.&nbsp; Looking at
+    the tsh.c (tiny shell) file, you will see that it contains a
+    functional skeleton of a simple Unix shell. To help you get started,
+    we have already implemented the less interesting functions. Your
+    assignment is to complete the remaining empty functions listed
+    below. As a sanity check for you, we've listed the approximate
+    number of lines of code for each of these functions in our reference
+    solution below (which includes lots of comments).<br>
+    <br>
+    - <b>eval:</b> Main routine that parses and interprets the command
+    line. [70 lines]<br>
+    <br>
+    - <b>builtin_cmd:</b> Recognizes and interprets the built-in
+    commands: quit, fg, bg, and jobs. [25 lines]<br>
+    <br>
+    - <b>do_bgfg:</b> Implements the bg and fg built-in commands. [50
+    lines]<br>
+    <br>
+    - <b>waitfg:</b> Waits for a foreground job to complete. [20 lines]<br>
+    <br>
+    - <b>sigchld_handler:</b> Catches SIGCHILD signals. [80 lines]<br>
+    <br>
+    - <b>sigint_handler:</b> Catches SIGINT (ctrl-c) signals. [15
+    lines]<br>
+    <br>
+    - <b>sigtstp_handler:</b> Catches SIGTSTP (ctrl-z) signals. [15
+    lines]<br>
+    <br>
+    Each time you modify your tsh.c file, type <b>make</b> to recompile
+    it. To run your shell, type ./tsh on the command line:<br>
+    <br>
+    <b>unix&gt; ./tsh</b><b><br>
+    </b><b>tsh&gt; [type commands to your shell here]</b><br>
+    <br>
+    <font size="+1"><b>General Overview of Unix Shells<br>
+        <br>
+      </b></font>A <i>shell</i> is an interactive command-line
+    interpreter that runs programs on behalf of the user. A shell
+    repeatedly prints a prompt, waits for a command line on stdin, and
+    then carries out some action, as directed by the contents of the
+    command line.<br>
+    <br>
+    The command line is a sequence of ASCII text words delimited by
+    whitespace. The first word in the command line is either the name of
+    a built-in command or the pathname of an executable file. The
+    remaining words are command-line arguments. If the first word is a
+    built-in command, the shell immediately executes the command in the
+    current process. Otherwise, the word is assumed to be the pathname
+    of an executable program. In this case, the shell forks a child
+    process, then loads and runs the program in the context of the
+    child. The child processes created as a result of interpreting a
+    single command line are known collectively as a job. In general, a
+    job can consist of multiple child processes connected by Unix pipes.<br>
+    <br>
+    If the command line ends with an ampersand "&amp;", then the job
+    runs in the background, which means that the shell does not wait for
+    the job to terminate before printing the prompt and awaiting the
+    next command line. Otherwise, the job runs in the foreground, which
+    means that the shell waits for the job to terminate before awaiting
+    the next command line. Thus, at any point in time, at most one job
+    can be running in the foreground. However, an arbitrary number of
+    jobs can run in the background.<br>
+    <br>
+    For example, typing the command line<br>
+    <br>
+    <b>tsh&gt; jobs<br>
+      <br>
+    </b>causes the shell to execute the built-in <b>jobs</b>
+    command.&nbsp; Typing the command line<br>
+    <br>
+    <b>tsh&gt;</b> /bin/ls -l -d <br>
+    <br>
+    runs the <b>ls </b>program in the foreground. By convention, the
+    shell ensures that when the program begins executing its main
+    routine<br>
+    <br>
+    <b>int main(int argc, char *argv[])<br>
+      <br>
+    </b>the <b>argc </b>and <b>ar</b><b>gv</b> arguments have the
+    following values<br>
+    <br>
+    - <b>argc == 3<br>
+      - argv[0] = "/bin/ls"<br>
+      - argv[1] = "-l"<br>
+      - argv[2] = "-d"<br>
+      <br>
+    </b>Alternatively, typing the command line<br>
+    <br>
+    <b>tsh&gt; /bin/ls -l -d &amp;<br>
+      <br>
+    </b>runs the
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <b>ls </b>program in the background.<br>
+    <br>
+    Unix shells support the notion of job control, which allows users to
+    move jobs back and forth between the background and foreground, and
+    to change the process state (running, stopped, or terminated) of the
+    processes in a job. Typing Ctrl-c causes a SIGINT signal to be
+    delivered to each process in the foreground job. The default action
+    for SIGINT is to terminate the process. Similarly, typing Ctrl-z
+    causes a SIGTSTP signal to be delivered to each process in the
+    foreground job. The default action for SIGTSTP is to place a process
+    in the stopped state, where it remains until it is awakened by the
+    receipt of a SIGCONT signal. Unix shells also provide various
+    built-in commands that support job control. For example:<br>
+    <br>
+    <b>- jobs: </b>List the running and stopped background jobs.<br>
+    <b>- bg</b> <b>&lt;job&gt;</b>: Change a stopped background job to
+    a running background job.<br>
+    <b>- fg &lt;job&gt;</b>: Change a stopped or running background job
+    to running in the foreground.<br>
+    - <b>kill &lt;job&gt;: </b>Terminate a job.<br>
+    <br>
+    <font size="+1"><b>The tsh Specification<br>
+        <br>
+      </b></font>Your tsh shell should have the following features:<br>
+    <br>
+    - The prompt should be the string "tsh&gt;".<br>
+    <br>
+    - The command line typed by the user should consist of a name and
+    zero or more arguments, all separated by one or more spaces. If name
+    is a built-in command, then tsh should handle it immediately and
+    wait for the next command line. Otherwise, tsh should assume that
+    name is the path of an executable file, which it loads and runs in
+    the context of an initial child process (in this context, the term
+    job refers to this initial child process).<br>
+    <br>
+    - tsh need not support pipes (|) or I/O redirection (&lt; and
+    &gt;).&nbsp; <br>
+    <br>
+    - Typing ctrl-c (ctrl-z) should cause a SIGINT (SIGTSTP) signal to
+    be sent to the current foreground job, as well as any descendants of
+    that job (e.g., any child processes that it forked). If there is no
+    foreground job, then the signal should have no effect.<br>
+    <br>
+    - If the command line ends with an ampersand &amp;, then tsh should
+    run the job in the background. Otherwise, it should run the job in
+    the foreground.<br>
+    <br>
+    - Each job can be identified by either a process ID (PID) or a job
+    ID (JID), which is a positive integer assigned by tsh. JIDs should
+    be denoted on the command line by the prefix '%'. For example, "%5"
+    denotes JID 5, and "5" denotes PID 5. (We have provided you with all
+    of the routines you need for manipulating the job list.)<br>
+    <br>
+    - tsh should support the following built-in commands:<br>
+    &nbsp;&nbsp;&nbsp; 1. The <b>quit </b>command terminates the
+    shell.<br>
+    &nbsp;&nbsp;&nbsp; 2. The <b>jobs </b>command lists all background
+    jobs.<br>
+    &nbsp;&nbsp;&nbsp; 3. The <b>bg &lt;job&gt; </b>command restarts
+    &lt;job&gt; by sending it a SIGCONT signal, and then runs it in the
+    background. The &lt;job&gt; argument can either be a PID or a JID.<br>
+    &nbsp;&nbsp;&nbsp; 4. The <b>fg &lt;job&gt;</b> command restarts
+    &lt;job&gt; by sending it a SIGCONT signal, and then runs it in the
+    foreground.&nbsp; The &lt;job&gt; argument can be either a PID or a
+    JID.<br>
+    <br>
+    - tsh should reap all of its zombie children. If any job terminates
+    because it receives a signal that it didn't catch, then tsh should
+    recognize this event and print a message with the job's PID and a
+    description of the offending signal.<br>
+    <br>
+    <font size="+1"><b>Checking Your Work<br>
+        <br>
+      </b></font>We have provided some tools to help you check your
+    work.<br>
+    <br>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>shlab.dvi</title>
+    <b></b><b>Reference solution.</b> The Linux executable tshref is the
+    reference solution for the shell. Run this program to resolve any
+    questions you have about how your shell should behave. Your shell
+    should emit output that is identical to the reference solution
+    (except for PIDs, of course, which change from run to run).<br>
+    <br>
+    <b>Shell driver.</b> The <b>sdriver.pl</b> program executes a shell
+    as a child process, sends it commands and signals as directed by a
+    trace file, and captures and displays the output from the shell.<br>
+    <br>
+    Use the -h argument to find out the usage of <b>sdriver.pl</b>:<br>
+    <br>
+    <b>unix&gt; ./sdriver.pl -h<br>
+      Usage: sdriver.pl [-hv] -t &lt;trace&gt; -s &lt;shellprog&gt; -a
+      &lt;args&gt;<br>
+      Options:<br>
+    </b><b>&nbsp;&nbsp;&nbsp; -h&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Print this
+      message<br>
+      &nbsp;&nbsp;&nbsp; -v&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp; Be more verbose<br>
+      &nbsp;&nbsp;&nbsp; -t &lt;trace&gt;&nbsp;&nbsp;&nbsp; Trace file<br>
+      &nbsp;&nbsp;&nbsp; -s &lt;shell&gt;&nbsp;&nbsp;&nbsp;&nbsp; Shell
+      program to test<br>
+    </b>&nbsp;&nbsp;&nbsp; <b>-a &lt;args&gt;&nbsp;&nbsp;&nbsp;&nbsp;
+      Shell arguments<br>
+      &nbsp;&nbsp;&nbsp; -g&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+      &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Generate output
+      for autograder<br>
+      <br>
+    </b>We have also provided 16 trace files (trace{01-16}.txt) that you
+    will use in conjunction with the shell driver to test the
+    correctness of your shell. The lower-numbered trace files do very
+    simple tests, and the higher-numbered tests do more complicated
+    tests.<br>
+    <br>
+    You can run the shell driver on your shell using trace file <b>trace01.txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </b>(for instance) by typing:<br>
+    <br>
+    <b>unix&gt; ./sdriver.pl -t trace01.txt -s ./tsh -a "-p"</b><br>
+    <br>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>shlab.dvi</title>
+    (the -a "-p" argument tells your shell not to emit a prompt), or<br>
+    <br>
+    <b>unix&gt; make test01<br>
+      <br>
+    </b>Similarly, to compare your result with the reference shell, you
+    can run the trace driver on the reference shell by typing:<br>
+    <br>
+    <b>unix&gt; ./sdriver.pl -t trace01.txt -s ./tshref -a "-p"<br>
+      <br>
+    </b>or<br>
+    <br>
+    <b>unix&gt; make rtest01<br>
+      <br>
+    </b>For your reference, <b>tshref.out</b> gives the output of the
+    reference solution on all traces. This might be more convenient for
+    you than manually running the shell driver on all trace files.<br>
+    <br>
+    The neat thing about the trace files is that they generate the same
+    output you would have gotten had you run your shell interactively
+    (except for an initial comment that identifies the trace). For
+    example:<b><br>
+      <br>
+      ece373&gt; make test15<br>
+      ./sdriver.pl -t trace15.txt -s ./tsh -a "-p" #<br>
+      # trace15.txt - Putting it all together<br>
+      #<br>
+      tsh&gt; ./bogus<br>
+      ./bogus: Command not found.<br>
+      tsh&gt; ./myspin 10<br>
+      Job (9721) terminated by signal 2<br>
+      tsh&gt; ./myspin 3 &amp;<br>
+      [1] (9723) ./myspin 3 &amp;<br>
+      tsh&gt; ./myspin 4 &amp;<br>
+      [2] (9725) ./myspin 4 &amp;<br>
+      tsh&gt; jobs<br>
+      [1] (9723) Running ./myspin 3 &amp; [2] (9725) Running ./myspin 4
+      &amp; tsh&gt; fg %1<br>
+      Job [1] (9723) stopped by signal 20 tsh&gt; jobs<br>
+      [1] (9723) Stopped<br>
+      [2] (9725) Running<br>
+      tsh&gt; bg %3<br>
+      %3: No such job<br>
+      tsh&gt; bg %1<br>
+      [1] (9723) ./myspin 3 &amp;<br>
+      tsh&gt; jobs<br>
+      [1] (9723)<br>
+      [2] (9725)<br>
+      tsh&gt; fg %1<br>
+      tsh&gt; quit<br>
+      ece373&gt;<br>
+      <br>
+    </b><font size="+2"><b>Hints<br>
+      </b></font><br>
+    -Read every word of Chapter 8 (Exceptional Control Flow) in your
+    textbook.<br>
+    <br>
+    -Use the trace files to guide the development of your shell.
+    Starting with trace01.txt, make sure that your shell produces the <b>identical</b>
+    output as the reference shell. Then move on to trace file
+    trace02.txt, and so on.<br>
+    <br>
+    -The waitpid, kill, fork, execve, setpgid, and sigprocmask functions
+    will come in very handy. The WUNTRACED and WNOHANG options to
+    waitpid will also be useful.<br>
+    <br>
+    -When you implement your signal handlers, be sure to send SIGINT and
+    SIGTSTP signals to the entire foreground process group, using "-pid"
+    instead of "pid" in the argument to the kill function. The
+    sdriver.pl program tests for this error.<br>
+    <br>
+    -One of the tricky parts of the assignment is deciding on the
+    allocation of work between the waitfg and sigchld handler functions.
+    We recommend the following approach:<br>
+    <br>
+    - In waitfg, use a busy loop around the sleep function.<br>
+    - In sigchld_handler, use exactly one call to waitpid.<br>
+    <br>
+    While other solutions are possible, such as calling waitpid in both
+    waitfg and sigchld handler, these can be very confusing. It is
+    simpler to do all reaping in the handler.<br>
+    <br>
+    -In eval, the parent must use sigprocmask to block SIGCHLD signals
+    before it forks the child, and then unblock these signals, again
+    using sigprocmask after it adds the child to the job list by calling
+    addjob. Since children inherit the blocked vectors of their parents,
+    the child must be sure to then unblock SIGCHLD signals before it
+    execs the new program.<br>
+    <br>
+    The parent needs to block the SIGCHLD signals in this way in order
+    to avoid the race condition where the child is reaped by sigchld
+    handler (and thus removed from the job list) before the parent calls
+    addjob.<br>
+    <br>
+    -Programs such as more, less, vi, and emacs do strange things with
+    the terminal settings. Don't run these programs from your shell.
+    Stick with simple text-based programs such as /bin/ls, /bin/ps, and
+    /bin/echo.<br>
+    <br>
+    -When you run your shell from the standard Unix shell, your shell is
+    running in the foreground process group. If your shell then creates
+    a child process, by default that child will also be a member of the
+    foreground process group. Since typing Ctrl-c sends a SIGINT to
+    every process in the foreground group, typing Ctrl-c will send a
+    SIGINT to your shell, as well as to every process that your shell
+    created, which obviously isn't correct.<br>
+    <br>
+    Here is the workaround: After the fork, but before the execve, the
+    child process should call setpgid(0, 0), which puts the child in a
+    new process group whose group ID is identical to the child's PID.
+    This ensures that there will be only one process, your shell, in the
+    foreground process group. When you type Ctrl-c, the shell should
+    catch the resulting SIGINT and then forward it to the appropriate
+    foreground job (or more precisely, the process group that contains
+    the foreground job).<font size="+2"><b><br>
+      </b><b><br>
+      </b><b>Evaluation</b></font><br>
+    <br>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    Your score will be computed out of a maximum of 90 points based on
+    the following distribution:<br>
+    <br>
+    <b>80 </b>Correctness: 16 trace files at 5 points each.<br>
+    <br>
+    <b>10 </b>Style points. We expect you to have good comments (5pts)
+    and to check the return value of EVERY system call (5pts).<br>
+    <br>
+    Your solution shell will be tested for correctness on the class VM,
+    using the same shell driver and trace files that were included in
+    the assignment directory. Your shell should produce identical output
+    on these traces as the reference shell, with only two exceptions:<br>
+    <br>
+    -The PIDs can (and will) be different.<br>
+    <br>
+    -The output of the /bin/ps commands in trace11.txt, trace12.txt, and
+    trace13.txt will be different from run to run. However, the running
+    states of any mysplit processes in the output of the /bin/ps command
+    should be identical.<br>
+    <br>
+    <font size="+2"><b>Submission Instructions</b></font><br>
+    <br>
+    Put your name, and the name of your partner, at the top of your
+    tsh.c file.&nbsp; Then submit your tsh.c file to <a moz-do-not-send="true" href="https://www.umass.edu/it/canvas">Canvas</a>.<br>
+    <title>shlab.dvi</title>
+  
+
+</body></html>

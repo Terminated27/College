@@ -1,5 +1,12 @@
 void eval(char *cmdline);
 int builtin_cmd(char **argv); -> working on  - Aidan
+    - tsh should support the following built-in commands:
+    1. The quit command terminates the shell. - done
+    2. The jobs command lists all background jobs. - done
+    3. The bg <job> command restarts <job> by sending it a SIGCONT signal, 
+    and then runs it in the background. The <job> argument can either be a PID or a JID.
+    4. The fg <job> command restarts <job> by sending it a SIGCONT signal, 
+    and then runs it in the foreground.  The <job> argument can be either a PID or a JID.
 void do_bgfg(char **argv);
 void waitfg(pid_t pid);
 

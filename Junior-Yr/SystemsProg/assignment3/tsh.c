@@ -226,18 +226,16 @@ int builtin_cmd(char **argv) {
   if (argv == NULL) {
     return 0;
   } // no command, return 0
-  if (strcmp(*argv, "jobs") == 0) {
-    // execute job
+  if (strcmp(argv[0], "jobs") == 0) { //lists running jobs
+    listjobs(jobs);
   }
-  if (strcmp(*argv, "quit") == 0) {
+  if (strcmp(argv[0], "quit") == 0) {
     exit(0); // quit
   }
-  if (strcmp(*argv, "bg") == 0) {
-    // execute job
+  if (strcmp(argv[0], "bg") == 0 || strcmp(argv[0], "fg") == 0) { //changes job to background or foreground
+    do_bgfg(argv);
   }
-  if (strcmp(*argv, "fg") == 0) {
-    // execute job
-  }
+
 
   return 0; /* not a builtin command */
 }

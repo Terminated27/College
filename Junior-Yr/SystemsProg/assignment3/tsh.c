@@ -1,7 +1,7 @@
 /*
  * tsh - A tiny shell program with job control
  *
- * <Put your name and login ID here>
+ * <Aidan Chin 33803321 & Luke _________>
  */
 #include <cstddef>
 #include <ctype.h>
@@ -226,16 +226,16 @@ int builtin_cmd(char **argv) {
   if (argv == NULL) {
     return 0;
   } // no command, return 0
-  if (strcmp(argv[0], "jobs") == 0) { //lists running jobs
+  if (strcmp(argv[0], "jobs") == 0) { // lists running jobs
     listjobs(jobs);
   }
   if (strcmp(argv[0], "quit") == 0) {
     exit(0); // quit
   }
-  if (strcmp(argv[0], "bg") == 0 || strcmp(argv[0], "fg") == 0) { //changes job to background or foreground
+  if (strcmp(argv[0], "bg") == 0 ||
+      strcmp(argv[0], "fg") == 0) { // changes job to background or foreground
     do_bgfg(argv);
   }
-
 
   return 0; /* not a builtin command */
 }
@@ -243,12 +243,57 @@ int builtin_cmd(char **argv) {
 /*
  * do_bgfg - Execute the builtin bg and fg commands
  */
-void do_bgfg(char **argv) { return; }
+void do_bgfg(char **argv) {
+  struct job_t *job;
+  int jid;
+  pid_t pid;
+
+  if (argv[1] == NULL) { // Check if argument has jobid
+    printf("%s Command needs a PID or %%jobid\n", argv[0]);
+    return;
+  }
+  if (argv[1][0] == '%') {   // job id
+    jid = atoi(&argv[1][1]); // extract job
+    job = getjobjid(jobs, jid);
+    if (job == NULL) { // check if job exists
+      printf("%s: No such job\n", argv[1]);
+      return;
+    }
+  } else {               // pid
+    pid = atoi(argv[1]); // extract job
+    job = getjobpid(jobs, pid);
+    if (job == NULL) { // check if job exists
+      printf("%s: No such job\n", argv[1]);
+      return;
+    }
+  }
+
+  pid = job->pid; // make pid for sure
+
+  if (strcmp(argv[0], "bg")) { // change to background
+    job->state = BG;
+    kill(-pid, SIGCONT);
+    printf("[%d] (%d) %s\n", job->jid, job->pid, job->cmdline);
+  } else { // change to foreground
+    job->state = FG;
+    kill(-pid, SIGCONT);
+    waitfg(pid);
+  }
+  return;
+}
 
 /*
  * waitfg - Block until process pid is no longer the foreground process
  */
-void waitfg(pid_t pid) { return; }
+void waitfg(pid_t pid) {
+  struct job_t *job = getjobpid(jobs, pid);
+
+  while (job != NULL && job->state == FG) {
+    usleep(1000);               // sleep to not take over the cpu
+    job = getjobpid(jobs, pid); // check if job is still in FG state
+  }
+  return;
+}
 
 /*****************
  * Signal handlers

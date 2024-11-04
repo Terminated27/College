@@ -3,7 +3,7 @@
  *
  * <Aidan Chin 33803321 & Luke _________>
  */
-#include <cstddef>
+#include <stddef.h>
 #include <ctype.h>
 #include <errno.h>
 #include <signal.h>
@@ -162,7 +162,17 @@ int main(int argc, char **argv) {
  * background children don't receive SIGINT (SIGTSTP) from the kernel
  * when we type ctrl-c (ctrl-z) at the keyboard.
  */
-void eval(char *cmdline) { return; }
+void eval(char *cmdline) { 
+  
+  char *argv;
+  if (parseline(cmdline, &argv) == 1){
+    app_error("no command");
+  } else {
+    
+  }
+
+  return;
+   }
 
 /*
  * parseline - Parse the command line and build the argv array.

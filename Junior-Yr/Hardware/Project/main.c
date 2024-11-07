@@ -52,8 +52,8 @@ int main(){
 	unsigned long long composite[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
 
-	primeIterator(a, prime, composite, arrayLength);
-	//isPrimeAssembly(a, prime, composite, arrayLength);
+	//primeIterator(a, prime, composite, arrayLength);
+	isPrimeAssembly(a, prime, composite, arrayLength);
 
 	printf("Input Array elements were: ");
 	for(int i = 0; i < arrayLength; i++)

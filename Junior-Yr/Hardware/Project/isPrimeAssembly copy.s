@@ -28,7 +28,7 @@ Prime:
 nonPrime:
     LDR     x0, [x4, x8, LSL #3] ; Load original_array[counter] into x0
     STR     x0, [x6, x10, LSL #3]; Store in composite_array[non-prime count]
-    ADDI    x10, x10, #1         ; Increment non-prime count
+    ADD    x10, x10, #1         ; Increment non-prime count
     B       incrementCount       ; Go to next iteration
 
 incrementCount:

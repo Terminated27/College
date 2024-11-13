@@ -58,21 +58,21 @@ int main(){
 	printf("Input Array elements were: ");
 	for(int i = 0; i < arrayLength; i++)
 	{
-		printf("%d ", a[i]);
+		printf("%llu ", a[i]);
 	}
 	printf("\n");
 
 	printf("Prime Array elements are: ");
 	for(int i = 0; i < arrayLength; i++)
 	{
-		printf("%d ", prime[i]);
+		printf("%llu ", prime[i]);
 	}
 	printf("\n");
 
 	printf("Composite Array elements are: ");
 	for(int i = 0; i < arrayLength; i++)
 	{
-		printf("%d ", composite[i]);
+		printf("%llu ", composite[i]);
 	}
 	printf("\n");
 	return 0;

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define ARR_SIZE 1024
+#define ARR_SIZE 4096
 
 // Utility function to find the maximum value in the array
 int getMax(int arr[], int n) {

@@ -3,7 +3,7 @@
 #include <time.h>
 
 #define INSERTION_SORT_THRESHOLD 10
-#define ARR_SIZE 1024
+#define ARR_SIZE 4096
 
 // Function to swap two elements
 void swap(int *a, int *b) {
